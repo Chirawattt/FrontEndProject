@@ -9,15 +9,15 @@
 <body class="bg-gray-50">
     <!-- navbar -->
     <%- include('components/navbar.ejs') %>
-    <div class="container mx-auto text-center py-10 font-semibold text-[#222]  text-3xl lg:text-4xl">
-        My Order  (<span><%= order.length %></span> items)
+    <div class="container mx-auto text-center pt-10 pb-3 font-semibold text-[#222]  text-3xl lg:text-4xl">
+        New Order (<span><%= order.length %></span> items)
     </div>
     <div class="container mx-auto lg:px-4 mb-4">
         <div class="flex flex-col">
             <!-- order header -->
             <div class="flex items-center bg-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
                 <div class="w-1/6 text-center">Order ID</div>
-                <div class="w-1/6 text-center">User ID</div>
+                <div class="w-1/6 text-center">Real Name</div>
                 <div class="w-1/6 text-center">Total</div>
                 <div class="w-1/4 text-center">Status</div>
                 <div class="w-1/6 text-center">operation</div>
@@ -29,7 +29,46 @@
                     <h1 class="text-xl font-semibold">Don't have any Order yet.</h1>
                 </div>
             <% } %>
-            <% console.log(user); %>
+            <% if(order.length > 0) { %>
+                <% for (let i = 0; i < order.length; i++) { %>
+                    <% if(order[i].status == "order-received") { %>
+                        <%- include('components/orderItem.ejs', {
+                            orderId: order[i].orderId,
+                            user_id: order[i].user_id,
+                            totalAmount: order[i].totalAmount,
+                            status: order[i].status,
+                            subtotal: order[i].subtotal,
+                            fname: userArray[i]
+                        }) %>
+                    <% } %>
+                <% } %>
+            <% } %>
+
+            <!-- divider cart items -->
+            <div class="w-full py-[1px] rounded-[0_0_0.375rem_0.375rem] bg-white mb-4 border"></div>
+        </div>
+    </div>
+
+    <div class="container mx-auto text-center pt-10 pb-3 font-semibold text-[#222]  text-3xl lg:text-4xl">
+        Done Order (<span><%= order.length %></span> items)
+    </div>
+    <div class="container mx-auto lg:px-4 mb-4">
+        <div class="flex flex-col">
+            <!-- order header -->
+            <div class="flex items-center bg-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
+                <div class="w-1/6 text-center">Order ID</div>
+                <div class="w-1/6 text-center">Real Name</div>
+                <div class="w-1/6 text-center">Total</div>
+                <div class="w-1/4 text-center">Status</div>
+                <div class="w-1/6 text-center">operation</div>
+            </div>
+            <!-- order item -->
+
+            <% if(order.length == 0) { %>
+                <div class="flex justify-center items-center bg-white py-4 rounded-[0_0_0.375rem_0.375rem] border">
+                    <h1 class="text-xl font-semibold">Don't have any Order yet.</h1>
+                </div>
+            <% } %>
             <% if(order.length > 0) { %>
                 <% for (let i = 0; i < order.length; i++) { %>
                     <%- include('components/orderItem.ejs', {
@@ -38,14 +77,13 @@
                         totalAmount: order[i].totalAmount,
                         status: order[i].status,
                         subtotal: order[i].subtotal,
+                        fname: userArray[i]
                     }) %>
                 <% } %>
             <% } %>
-            <!-- divider cart items -->
-            <div class="w-full py-2 rounded-[0_0_0.375rem_0.375rem] bg-white mb-4 border"></div>
 
             <!-- divider cart items -->
-            <div class="w-full py-2 rounded-[0_0_0.375rem_0.375rem] bg-white mb-4 border"></div>
+            <div class="w-full py-[1px] rounded-[0_0_0.375rem_0.375rem] bg-white mb-4 border"></div>
         </div>
     </div>
 

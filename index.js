@@ -309,27 +309,30 @@ app.post('/checkout', (req, res) => {
 
 // route to get all orders received
 app.get('/order', (req, res) => {
-    axios.get(`${base}/order/received`).
-    then(response => {
-        // axios.get(`${base}/user/getUser/${app.locals.user.data.userId}`)
-        // .then((response) => { 
-        //     // response.data.forEach((user) => {
-        //     //     app.locals.arrayUser = user;
-        //     //     console.log(user);
-        //     // });
-        //     // app.locals.user = response.data;
-        //     // res.render('order.ejs', {data: app.locals.user});
-        // })
-        // .catch((err) => { res.json(err); });    
-        app.locals.order = response.data;
-        res.render('order.ejs', {order: app.locals.order});
+    let userArray = [];
+    axios.get(`${base}/order/getAll`)
+    .then(async responseOrder => {
+        for (let i = 0; i < responseOrder.data.length; i++) {
+            const User = await axios.get(`${base}/user/getUser/${responseOrder.data[i].user_id}`);
+            userArray.push(User.data.fname);
+        }
+        app.locals.order = responseOrder.data;
+        res.render('order.ejs', {order: app.locals.order, userArray: userArray});
     }).catch(error => {
         res.redirect('/');
     });
 });
 
+// route to update order status
+app.get('/updateStatus/:orderId', (req, res) => {
 
-
+    axios.get(`${base}/order/updateStatus/${req.params.orderId}`)
+    .then(response => {
+        res.redirect('/order');
+    }).catch(error => {
+        res.redirect('/');
+    });
+});
 app.post
   app.listen(5000, () => {
     console.log('Server is running at http://localhost:5000/');

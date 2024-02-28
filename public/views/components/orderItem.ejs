@@ -5,11 +5,12 @@
             <div class="text-md lg:text-lg"><%= orderId %></div>
         </div>
     </div> -->
+    <%= if(status == ) %>
     <div class="w-1/6 text-center"> <%= orderId %></div>
-    <div class="w-1/6 text-center"> <%= user_id %></div>
+    <div class="w-1/6 text-center"> <%= fname %></div>
     <div class="w-1/6 text-center"><%= totalAmount %>฿</div>
-    <div class="w-1/4 text-center">฿ <%= status %></div>
+    <div class="w-1/4 text-center"><%= status %></div>
     <div class="w-1/6 flex justify-center items-center">
-        <a href="" class="bg-red-500 text-white py-1 px-2 rounded-md hover:text-[#F4BF14] transition-all cursor-pointer">delete</a>
+        <a href="/updateStatus/<%= orderId %>" class="bg-green-500 text-white py-1 px-2 rounded-md hover:bg-green-700 transition-all cursor-pointer">done</a>
     </div>
 </div>
