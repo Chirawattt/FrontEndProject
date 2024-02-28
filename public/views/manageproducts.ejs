@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Admin Page</title>
+</head>
+<body>
+    <%- include('components/navbar.ejs') %>
+    <div class="flex justify-between items-center">
+        <div class="p-10 text-4xl ">
+            Admin Page
+        </div>
+        <div>
+            <a href="/addproduct" class="py-2.5 px-10 me-10 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg 
+                border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 
+                dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">ADD +</a>
+        </div>
+    </div>
+    
+    
+   
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Bread ID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Bread Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Price
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <a href="/editbread">edit</a>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <a href="/editbread">delete</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < bread.length; i++) { %>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <%= i+1 %>
+                    </th>
+                    <td class="px-6 py-4">
+                        <%= bread[bread.length - i - 1].name %>
+                    </td>
+                    <td class="px-8 py-4">
+                        <%= bread[bread.length - i - 1].price %>
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="/editbread/<%= bread[bread.length - i - 1].breadId %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="/deletebread/<%= bread[bread.length - i - 1].breadId %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                    </td>
+                </tr>
+                <% } %>
+                
+            </tbody>
+    </table>
+    </div>
+    
+
+</body>
+</html>

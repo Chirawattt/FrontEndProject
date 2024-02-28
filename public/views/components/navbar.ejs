@@ -1,0 +1,29 @@
+<div class="sticky top-0 w-full bg-gradient-to-l from-purple-100 to-purple-300 border-b text-[#222] mb-0 
+    transition-all z-[999] flex justify-between p-6">
+    <div>
+        <a href="/" class="mr-8 text-purple-900 font-semibold text-4xl">bread</a>
+    </div>
+    <div class="flex items-center gap-8 text-grey-500 font-semibold text-2xl">
+        <% if (user != null) { %>
+            <a href="/menu">Menu</a>
+            <a href="/profile">Profile</a>
+            <a href="/about">About</a>
+            <a href="/cart">Cart</a>
+            <% if (user.data.role == 'admin') { %>
+                <a href="/manageproducts">Admin</a>
+                <a href="/order">Order</a>
+            <% } %>
+            <a href="/logout" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 
+            focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-5 py-2.5 text-center">logout</a>
+        <% } else { %>
+            <a href="/menu">Menu</a>
+            <a href="/profile">Profile</a>
+            <a href="/about">About</a>
+            <a href="/cart">Cart</a>
+            <a href="/login" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br 
+            focus:ring-4 focus:outline-none focus:ring-purple-300 
+            dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-2xl px-5 
+            py-2.5 text-center">Login</a>
+        <% } %>
+    </div>
+</div>

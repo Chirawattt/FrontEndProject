@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Menu Page</title>
+</head>
+<body>
+    <%- include('components/navbar.ejs') %>
+    <!-- menubar -->
+    <div class="container ml-4 mx-auto px-4 pt-8 pb-4 font-semibold text-[#222] text-4xl ">
+        All menu
+    </div>
+    <div class="grid row-gap-8 sm:row-gap-0 sm:grid-cols-2 lg:grid-cols-3">
+        <% for(let i = 0; i < bread.length; i++) { %>
+            <%- include('components/bread.ejs', {
+                breadId: bread[bread.length - i - 1].breadId,
+                name: bread[bread.length - i - 1].name, 
+                price: bread[bread.length - i - 1].price,
+                breadimg: bread[bread.length - i - 1].breadImg 
+            }) %> 
+        <% } %>
+    </div>
+    
+    </div>
+</body>
+</html>

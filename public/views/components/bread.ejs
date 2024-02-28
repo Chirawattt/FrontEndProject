@@ -1,0 +1,22 @@
+<form action="/addtocart" method="post" class="w-full p-4">
+    <% if(user != null) { %>
+    <input class="hidden" type="number" name="userId" id="userId" value="<%= user.data.userId %>">
+    <% } %>
+    <input class="hidden" type="number" name="cart_id" id="cart_id" value="<%= user.data.userId %>">
+    <input class="hidden" type="number" name="breadId" id="breadId" value="<%= breadId %>">
+    <div class="bg-white p-4 border hover:shadow-lg transition-all rounded-md overflow-hidden cursor-pointer">
+        <div id="picture" class="flex items-center justify-center w-full h-48">
+            <img src="<%= breadimg %>" class="w-40 object-cover"/>
+        </div>
+        <h1 class="text-xl font-medium mt-2"><%= name %></h1>
+        <div class="flex justify-between items-center">
+            <p class="text-lg font-medium text-[#222]">฿ <span class="text-red-500 font-semibold"><%=   %></span></p>
+            <div class="flex gap-2">
+                <label for="amount" class="font-medium">จำนวน</label>
+                <input type="number" name="quantity" id="amount" class="bg-gray-50 border w-12 text-center rounded-md" value="1">
+                <!-- <p>รายการ</p> -->
+            </div>
+        </div>
+        <input type="submit" class="w-full bg-[#222] text-white py-2 mt-2 rounded-md hover:text-[#F4BF14] transition-all cursor-pointer" value="เพิ่มลงตะกร้า">
+    </div>
+</form>

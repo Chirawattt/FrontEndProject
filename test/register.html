@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>ลงทะเบียน</title>
+</head>
+<body>
+    <div class="min-h-screen flex justify-center items-center bg-gray-50">
+        <div class="w-full max-w-md">
+            <div class="rounded-lg border bg-white text-[#222] shadow-sm">
+                <div class="flex flex-col pt-6">
+                    <h3 class="whitespace-nowrap tracking-tight text-2xl font-semibold text-center">REGISTER</h3>
+                </div>
+                <div class="p-6">
+                    <form action="" class="space-y-2">
+                        <div class="space-y-1">
+                            <label for="fname" class="text-sm font-medium leading-none">firstname</label>
+                            <input type="text" name="fname" id="fname" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label for="lname" class="text-sm font-medium leading-none">lastname</label>
+                            <input type="text" name="lname" id="lname" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label for="username" class="text-sm font-medium leading-none">username</label>
+                            <input type="text" name="username" id="username" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label for="password" class="text-sm font-medium leading-none">password</label>
+                            <input type="password" name="password" id="password" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label for="fname" class="text-sm font-medium leading-none">email</label>
+                            <input type="email" name="fname" id="fname" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label for="lname" class="text-sm font-medium leading-none">telephone</label>
+                            <input type="tel" name="lname" id="lname" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none" required>
+                        </div>
+                        <div class="space-y-1">
+                            <label for="lname" class="text-sm font-medium leading-none">address</label>
+                            <input type="text" name="lname" id="lname" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none" required>
+                        </div>
+                        <div class="space-y-1">
+                            <input type="submit" value="Register" class="w-full h-10 rounded-md border bg-[#222]
+                            text-white hover:shadow-lg hover:text-[#F4BF14] transition-all focus:outline-none cursor-pointer ">
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <a href="login.ejs" class="text-sm font-medium hover:underline transition-all">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

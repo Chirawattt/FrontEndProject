@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('components/utility.ejs') %>
+    <title>My cart detail</title>
+</head>
+<body class="bg-gray-50">
+    <!-- navbar -->
+    <%- include('components/navbar.ejs', { userName: 'เข้าสู่ระบบ', orderCount: cart.length }) %>
+    <div class="container mx-auto text-center py-10 font-semibold text-[#222]  text-3xl lg:text-4xl">
+        My cart detail (<span><%= cart.length %></span> items)
+    </div>
+    <div class="container mx-auto lg:px-4 mb-4">
+        <div class="flex flex-col">
+            <!-- cart header -->
+            <div class="flex items-center bg-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
+                <div class="w-1/2 text-center">name</div>
+                <div class="w-1/6 text-center">price</div>
+                <div class="w-1/6 text-center">quantity</div>
+                <div class="w-1/6 text-center">subtotal</div>
+                <div class="w-1/6 text-center">operation</div>
+            </div>
+            <!-- cart item -->
+
+            <% if(cart.length == 0) { %>
+                <div class="flex justify-center items-center bg-white py-4 rounded-[0_0_0.375rem_0.375rem] border">
+                    <h1 class="text-xl font-semibold">Don't have any bread in cart</h1>
+                </div>
+            <% } %>
+            <% if(cart.length > 0) { %>
+                <% for (let i = 0; i < cart.length; i++) { %>
+                    <%- include('components/cartBread.ejs', {
+                        name: bread[i].name,
+                        price: bread[i].price,
+                        type: bread[i].type,
+                        quantity: cart[i].quantity,
+                        subtotal: cart[i].subtotal
+                        <!-- imgurl: product[i].imgurl, -->
+                    }) %>
+                <% } %>
+            <% } %>
+            <!-- divider cart items -->
+            <div class="w-full py-2 rounded-[0_0_0.375rem_0.375rem] bg-white mb-4 border"></div>
+
+            <!-- checkout -->
+            <div class="flex justify-start gap-4 rounded-[0.375rem_0.375rem_0_0] bg-white py-2 px-4 border">
+                <h1 class="text-3xl font-semibold">Make Order</h1>
+            </div>
+
+            <!-- confirm -->
+            <form action="/checkout" method="post" class="flex flex-col lg:flex-row lg:justify-between items-center bg-white gap-4 py-2 px-4 border-x">
+                <input class="hidden" type="number" name="userId" id="userId" value="<%= user.data.userId %>">
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2">
+                        <p class="font-semibold">Total</p>
+                        <% let total = 0; %>
+                        <% for(let i = 0; i < cart.length; i++) { %>
+                            <% total += cart[i].subtotal %>
+                        <% } %>
+                        <p class="text-red-500 font-semibold">฿ <%= total %></p>
+                    </div>
+                    <div>
+                        <input type="submit" value="Order" class="bg-[#222] text-white py-2 px-4 rounded-md hover:text-[#F4BF14] transition-all cursor-pointer">
+                    </div>
+                </div>
+            </form>
+            <!-- divider cart items -->
+            <div class="w-full py-2 rounded-[0_0_0.375rem_0.375rem] bg-white mb-4 border"></div>
+        </div>
+    </div>
+
+    <script src="../javascript/script.js"></script>
+</body>
+</html>

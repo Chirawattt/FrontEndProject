@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Edit Bread</title>
+</head>
+<body>
+    <%- include('components/navbar.ejs') %>
+    <div class="min-h-screen flex justify-center items-center bg-gray-50">
+        <div class="w-full max-w-md">
+            <div class="rounded-lg border bg-white text-[#222] shadow-sm">
+                <div class="flex flex-col pt-6">
+                    <h3 class="whitespace-nowrap tracking-tight text-2xl font-semibold text-center">Edit bread</h3>
+                </div>
+                <div class="p-6">
+                    <form action="/editbread/<%= bread.breadId %>" method="post" class="space-y-4">
+                        <div class="space-y-2">
+                            <label for="name" class="text-sm font-medium leading-none">Bread name</label>
+                            <input type="text" name="name" id="name" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="price" class="text-sm font-medium leading-none">Bread price</label>
+                            <input type="text" name="price" id="price" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="typeBread" class="text-sm font-medium leading-none">Bread type</label>
+                            <input type="text" name="typeBread" id="typeBread" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="descript" class="text-sm font-medium leading-none">Bread descript</label>
+                            <input type="text" name="descript" id="descript" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="breadImg" class="text-sm font-medium leading-none">Bread img</label>
+                            <input type="text" name="breadImg" id="breadImg" class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <input type="submit" value="Edit" class="w-full h-10 rounded-md border bg-[#222]
+                            text-white hover:shadow-lg hover:text-[#c2df84] focus:outline-none cursor-pointer transition-all">
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
