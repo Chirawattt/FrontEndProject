@@ -19,28 +19,33 @@
                     <form action="/editbread/<%= bread.breadId %>" method="post" class="space-y-4">
                         <div class="space-y-2">
                             <label for="name" class="text-sm font-medium leading-none">Bread name</label>
-                            <input type="text" name="name" id="name" class="flex h-10 w-full rounded-md
+                            <input type="text" name="name" id="name" value="<%= bread.name %>" class="flex h-10 w-full rounded-md
                             border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
                         </div>
                         <div class="space-y-2">
                             <label for="price" class="text-sm font-medium leading-none">Bread price</label>
-                            <input type="text" name="price" id="price" class="flex h-10 w-full rounded-md
+                            <input type="number" name="price" id="price" value="<%= bread.price %>" class="flex h-10 w-full rounded-md
                             border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
                         </div>
                         <div class="space-y-2">
                             <label for="typeBread" class="text-sm font-medium leading-none">Bread type</label>
-                            <input type="text" name="typeBread" id="typeBread" class="flex h-10 w-full rounded-md
+                            <input type="text" name="typeBread" id="typeBread" value="<%= bread.typeBread %>" class="flex h-10 w-full rounded-md
                             border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
                         </div>
                         <div class="space-y-2">
                             <label for="descript" class="text-sm font-medium leading-none">Bread descript</label>
-                            <input type="text" name="descript" id="descript" class="flex h-10 w-full rounded-md
+                            <input type="text" name="descript" id="descript" value="<%= bread.descript %>" class="flex h-10 w-full rounded-md
                             border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
                         </div>
                         <div class="space-y-2">
                             <label for="breadImg" class="text-sm font-medium leading-none">Bread img</label>
-                            <input type="text" name="breadImg" id="breadImg" class="flex h-10 w-full rounded-md
+                            <% if (bread.breadImg == null) { %>
+                                <input type="text" name="breadImg" id="breadImg" placeholder="Null" class="flex h-10 w-full rounded-md
                             border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                            <% } else { %>
+                                <input type="text" name="breadImg" id="breadImg" value="<%= bread.breadImg %>" class="flex h-10 w-full rounded-md
+                                border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                            <% } %>
                         </div>
                         <div class="space-y-2">
                             <input type="submit" value="Edit" class="w-full h-10 rounded-md border bg-[#222]

@@ -1,0 +1,12 @@
+<!-- order items -->
+<div class="flex items-center bg-white gap-4 py-2 px-4 border-t border-x hover:bg-gray-100 transition-all text-md">
+    <div class="w-1/4 flex justify-center items-center">
+        <img src="" alt="breadImg" class="w-12 h-12 object-cover rounded-md">
+    </div>
+    <div class="w-1/4 text-center"><%= name %></div>
+    <div class="w-1/6 text-center"><%= price %>฿</div>
+    <div class="w-1/6 flex justify-center items-center">
+        <input class="bg-gray-50 border w-12 text-center rounded-md" type="number" name="quantity" id="quantity" value="<%= quantity %>" disabled />
+    </div>
+    <div class="w-1/6 text-center"><%= subtotal %>฿</div>
+</div>

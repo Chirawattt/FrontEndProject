@@ -121,10 +121,6 @@ app.post('/editprofile', async (req, res) => {
     });
 });
 
-// route to get user data by user id
-app.get('/user/:id', (req, res) => {
-});
-
 // route to delete profile or user
 app.get('/deleteprofile', (req, res) => {
     axios.get(`${base}/user/delete/${app.locals.user.data.userId}`)
@@ -325,14 +321,26 @@ app.get('/order', (req, res) => {
 
 // route to update order status
 app.get('/updateStatus/:orderId', (req, res) => {
-
-    axios.get(`${base}/order/updateStatus/${req.params.orderId}`)
+    axios.post(`${base}/order/update/status/${req.params.orderId}`)
     .then(response => {
         res.redirect('/order');
     }).catch(error => {
         res.redirect('/');
     });
 });
+
+// route to get detail of order 
+app.get('/orderDetail/:orderId', (req, res) => {
+    axios.get(`${base}/order/detail/${req.params.orderId}`)
+    .then(response => {
+        app.locals.orderDetail = response.data;
+        res.render('orderDetail.ejs', {orderDetail: app.locals.orderDetail});
+    }).catch(error => {
+        console.log(error);
+        res.redirect('/');
+    });
+});
+
 app.post
   app.listen(5000, () => {
     console.log('Server is running at http://localhost:5000/');

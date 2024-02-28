@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('components/utility.ejs') %>
+    <title>Order Detail</title>
+</head>
+<body class="bg-gray-50">
+    <!-- navbar -->
+    <%- include('components/navbar.ejs', { userName: 'เข้าสู่ระบบ'}) %>
+    <div class="container mx-auto text-center py-10 font-semibold text-[#222]  text-3xl lg:text-4xl">
+        Order detail (<span><%= orderDetail.length %></span> items)
+    </div>
+    <div class="container mx-auto lg:px-4 mb-4">
+        <div class="flex flex-col">
+            <!-- cart header -->
+            <div class="flex items-center bg-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
+                <div class="w-1/4 text-center">IMG</div>
+                <div class="w-1/4 text-center">name</div>
+                <div class="w-1/6 text-center">price</div>
+                <div class="w-1/6 text-center">quantity</div>
+                <div class="w-1/6 text-center">subtotal</div>
+            </div>
+            <!-- cart item -->
+
+            <% if(orderDetail.length == 0) { %>
+                <div class="flex justify-center items-center bg-white py-4 rounded-[0_0_0.375rem_0.375rem] border">
+                    <h1 class="text-xl font-semibold">Don't have any bread in cart</h1>
+                </div>
+            <% } %>
+            <% if(orderDetail.length > 0) { %>
+                <% for (let i = 0; i < orderDetail.length; i++) { %>
+                    <% let breadData = bread[orderDetail[i].bread_id - 1]; %>
+                    <%- include('components/orderBread.ejs', {
+                        quantity: orderDetail[i].quantity,
+                        subtotal: orderDetail[i].subtotal,
+                        name: breadData.name,
+                        breadImg: breadData.breadImg,
+                        price: breadData.price
+                        
+                    }) %>
+                <% } %>
+            <% } %>
+            <!-- divider cart items -->
+            <div class="w-full py-2 rounded-[0_0_0.375rem_0.375rem] bg-white mb-4 border"></div>
+        </div>
+    </div>
+
+    <script src="../javascript/script.js"></script>
+</body>
+</html>
