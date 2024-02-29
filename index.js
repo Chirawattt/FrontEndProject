@@ -16,7 +16,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.locals.user = null;
-app.locals.loginerror = false;
+app.locals.loginError = false;
+app.locals.loginErrorMessage = "";
+app.locals.updateError = false;
+app.locals.updateErrorMessage = "";
 app.locals.registererror = false;
 app.locals.editprofileerror = false;
 app.locals.cartlength = 0;
@@ -31,7 +34,7 @@ axios.get(`${base}/bread/all`)
 
 // default route
 app.get('/', async (req, res) => {
-    res.render('login.ejs', { data: app.locals.user });
+    res.render('index.ejs');
 });
 
 // route to register page
@@ -47,30 +50,27 @@ app.post('/register', async (req, res) => {
         if (response.data.registerfailed == true) {
             app.locals.registererror = true;
             res.redirect('/register');
-        } else {
-            res.redirect('/login');
-        }
-    }).catch((error) => {
-        console.log(error);
+        } else { res.redirect('/login'); }
+    }).catch((error) => { console.log(error);
     });
 });
 
 // route to login page
 app.get('/login', (req, res) => {
     res.render('login.ejs');
-    app.locals.loginerror = false;
 });
 
 // route to login by post method
 app.post('/login', async (req, res) => {
     axios.post(`${base}/user/login`, req.body)
         .then((response) => {
+            console.log(response.data);
             if (response.data.statuslogin == true) {
-                app.locals.user = response.data;
-                res.render('index.ejs', {data: app.locals.user});
+                app.locals.user = response.data.user;
+                res.redirect('/');
             } else {
-                app.locals.loginerror = true;
-                res.redirect('/login');
+                app.locals.loginError = true;
+                res.render('login.ejs',{loginErrorMessage: response.data.message});
             }
         })
         .catch(error => {
@@ -106,24 +106,24 @@ app.get('/editprofile', (req, res) => {
 
 // route to update profile by post method
 app.post('/editprofile', async (req, res) => {
-    axios.post(`${base}/user/update/${app.locals.user.data.userId}`, req.body)
+    axios.post(`${base}/user/update/${app.locals.user.userId}`, req.body)
     .then((response) => {
-        if (response.data.updatefailed == true) {
-            app.locals.editprofileerror = true;
-            res.redirect('/editprofile');
-        } else {
-            app.locals.user = {statuslogin: true, data: response.data};
-            res.redirect('/profile');
+        if (response.data.statusUpdate) {
+            app.locals.user = response.data.user;
+            res.render('profile.ejs',{updateErrorMessage: response.data.message});
+        }else {
+            app.locals.updateError = true;
+            res.render('profile.ejs',{updateErrorMessage: response.data.message});
         }
     })
     .catch((err) => {
-        res.redirect('/editprofile');
+        res.render('profile.ejs', {data: app.locals.user});
     });
 });
 
 // route to delete profile or user
 app.get('/deleteprofile', (req, res) => {
-    axios.get(`${base}/user/delete/${app.locals.user.data.userId}`)
+    axios.get(`${base}/user/delete/${app.locals.user.userId}`)
     .then((response) => {
         app.locals.user = null;
         res.redirect('/login');
@@ -155,6 +155,7 @@ app.post('/addproduct', async (req, res) => {
         });
 });
 
+
 // route to manage products pages
 app.get('/manageproducts', async (req, res) => {
     try {
@@ -164,22 +165,23 @@ app.get('/manageproducts', async (req, res) => {
     }
 });
 
-// route to get all bread data
+// route to get all bread data 
 app.get('/bread', (req, res) => {
     axios.get(`${base}/bread/all`)
     .then((response) => {
         app.locals.bread = response.data;
-        res.render('bread.ejs', {bread: response.data});
+        res.render('menu.ejs', {bread: response.data});
     }).catch(error => {
         res.redirect('/');
     });
 });
 
 // route to get bread data by category
-app.get('/bread/:category', (req, res) => {
-    axios.get(`${base}/bread/category/${req.params.category}`)
+app.get('/bread/:breadType', (req, res) => {
+    axios.get(`${base}/bread/type/${req.params.breadType}`)
   .then((response) => {
-    res.render('bread.ejs', {bread: response.data});
+    // console.log(req.params.breadType);
+    res.render('menu.ejs', {bread: response.data});
   }).catch((error) => {
     res.redirect('/');
   });
@@ -254,7 +256,7 @@ app.get('/cart', (req, res) => {
     if (app.locals.user == null) {
         res.redirect('/login'); 
     } else {
-        axios.get(`${base}/cart/getDetail/${app.locals.user.data.userId}`)
+        axios.get(`${base}/cart/getDetail/${app.locals.user.userId}`)
         .then(response => {
             app.locals.cart = response.data;
             res.render('cart.ejs', {cart: app.locals.cart});
@@ -314,6 +316,23 @@ app.get('/order', (req, res) => {
         }
         app.locals.order = responseOrder.data;
         res.render('order.ejs', {order: app.locals.order, userArray: userArray});
+    }).catch(error => {
+        res.redirect('/');
+    });
+});
+
+// continute coding this route ..................
+// route to get all my orders by user id
+app.get('/myorder', (req, res) => {
+    axios.get(`${base}/order/getAll/${app.locals.user.userId}`)
+    .then(async response => {
+        app.locals.myorder = response.data;
+        let myOrderDetailArray = [];
+        for (let i = 0; i < app.locals.myorder.length; i++) {
+            const myOrderDtail = await axios.get(`${base}/order/detail/${app.locals.myorder[i].order_id}`);
+            myOrderDetailArray.push(myOrderDtail.data);
+        }
+        res.render('myorder.ejs', {myorder: app.locals.myorder, myOrderDetailArray: myOrderDetailArray});
     }).catch(error => {
         res.redirect('/');
     });

@@ -1,17 +1,17 @@
 <!-- cart items -->
-<div class="flex items-center bg-white gap-4 py-2 px-4 border-t border-x hover:bg-gray-100 transition-all text-md">
+<div class="flex items-center bg-black gap-4 py-2 px-4 border-t border-x hover:bg-gray-100 transition-all text-md text-white hover:text-black">
     <div class="w-1/2 flex items-center gap-4">
-        <img src="" alt="bread" class="w-12 h-12 object-cover rounded-md">
+        <img src="<%= breadimg %>" alt="bread" class="w-12 h-12 object-cover rounded-md">
         <div>
             <div class="text-md lg:text-lg"><%= name %></div>
         </div>
     </div>
     <div class="w-1/6 text-center">฿ <%= price %></div>
     <div class="w-1/6 flex justify-center items-center">
-        <input class="bg-gray-50 border w-12 text-center rounded-md" type="number" name="quantity" id="quantity" value="<%= quantity %>" />
+        <input class="bg-gray-50 border w-12 text-center rounded-md text-black" type="number" name="quantity" id="quantity" value="<%= quantity %>" />
     </div>
     <div class="w-1/6 text-center">฿ <%= subtotal %></div>
     <div class="w-1/6 flex justify-center items-center">
-        <a href="" class="bg-red-500 text-white py-1 px-2 rounded-md hover:text-[#F4BF14] transition-all cursor-pointer">delete</a>
+        <a href="" class="bg-red-500 text-white py-1 px-2 rounded-md transition-all cursor-pointer hover:bg-red-700">delete</a>
     </div>
 </div>

@@ -6,7 +6,7 @@
     <%- include('components/utility.ejs') %>
     <title>Order Receieve</title>
 </head>
-<body class="bg-gray-50">
+<body class="bg-black">
     <!-- navbar -->
     <%- include('components/navbar.ejs') %>
     <% let doneOrder = 0; %>
@@ -19,13 +19,13 @@
         <% } %>
     <% } %>
 
-    <div class="container mx-auto text-center pt-10 pb-3 font-semibold text-[#222]  text-3xl lg:text-4xl">
+    <div class="container mx-auto text-center pt-10 pb-3 font-semibold text-gray-400  text-3xl lg:text-4xl">
         New Order (<span><%= notDone %></span> items)
     </div>
     <div class="container mx-auto lg:px-4 mb-4">
         <div class="flex flex-col">
             <!-- order header -->
-            <div class="flex items-center bg-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
+            <div class="flex items-center bg-black text-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
                 <div class="w-1/6 text-center">Order ID</div>
                 <div class="w-1/6 text-center">Real Name</div>
                 <div class="w-1/6 text-center">Total</div>
@@ -36,8 +36,8 @@
             <!-- order item -->
 
             <% if(order.length == 0) { %>
-                <div class="flex justify-center items-center bg-white py-4 rounded-[0_0_0.375rem_0.375rem] border">
-                    <h1 class="text-xl font-semibold">Don't have any Order yet.</h1>
+                <div class="flex justify-center items-center bg-black py-4 rounded-[0_0_0.375rem_0.375rem] border">
+                    <h1 class="text-xl font-semibold text-gray-400">Don't have any Order yet.</h1>
                 </div>
             <% } %>
             <% if(order.length > 0) { %>
@@ -64,13 +64,13 @@
         </div>
     </div>
 
-    <div class="container mx-auto text-center pt-10 pb-3 font-semibold text-[#222]  text-3xl lg:text-4xl">
+    <div class="container mx-auto text-center pt-10 pb-3 font-semibold text-gray-400  text-3xl lg:text-4xl">
         Done Order (<span><%= doneOrder %></span> items)
     </div>
     <div class="container mx-auto lg:px-4 mb-4">
         <div class="flex flex-col">
             <!-- order header -->
-            <div class="flex items-center bg-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
+            <div class="flex items-center bg-black text-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">
                 <div class="w-1/4 text-center">Order ID</div>
                 <div class="w-1/4 text-center">Real Name</div>
                 <div class="w-1/4 text-center">Total</div>

@@ -4,23 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="../css/main.css"> -->
+    <%- include('components/utility.ejs') %>
     <title>Menu Page</title>
 </head>
-<body>
+<body class="bg-[#0a0a0a] px-20">
     <%- include('components/navbar.ejs') %>
     <!-- menubar -->
-    <div class="container ml-4 mx-auto px-4 pt-8 pb-4 font-semibold text-[#222] text-4xl ">
-        All menu
+    
+    <div class="py-5 w-full border-b mb-5 ">
+        <!-- Category Filter -->
+        <div class="mx-4 px-4 py-2 bg-[#0a0a0a] h-full flex justify-center items-center ">
+            <ul class="grid grid-cols-3 text-center md:flex items-center gap-4 text-gray-400">
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread">ALL</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Baguettes">BAGUETTES</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Bagels">BAGELS</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Pretzels">PRETZELS</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Burger_buns">BURGER BUNS</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Rolls">ROLLS</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Hoagies&Hot_dog">HOAGIES & HOT DOG BUNS</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Sandwich">SANDWICH BREADS</a></li>
+                <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/special">SPECIAL BREADS</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="grid row-gap-8 sm:row-gap-0 sm:grid-cols-2 lg:grid-cols-4">
+
+    <% let allStatus = false; %>
+    <% for (let i = 0; i < bread.length; i++) { %>
+        <% if (i > 30) { %>
+            <% allStatus = true; %>
+        <% } %>
+    <% } %>
+
+    <div class="flex justify-center items-center">
+        <p class="font-semibold text-3xl text-gray-400 mt-[10px] mb-[20px] ">
+            <% if (allStatus) { %>
+                ALL BREADS
+            <% } else { %>
+                <% if (bread[0].typeBread == 'Burger_buns') { %>
+                    BURGER BUNS
+                <% } else if (bread[0].typeBread == 'Hoagies&Hot_dog') { %>
+                    HOAGIES & HOT DOG BUNS
+                <% } else { %>
+                    <%= bread[0].typeBread.toUpperCase() %>
+                <% } %>
+            <% } %>
+        </p>
+    </div>
+
+    <div class="grid row-gap-8 sm:row-gap-0 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <% for(let i = 0; i < bread.length; i++) { %>
-            <%- include('components/bread.ejs', {
-                breadId: bread[bread.length - i - 1].breadId,
-                name: bread[bread.length - i - 1].name, 
-                price: bread[bread.length - i - 1].price,
-                breadimg: bread[bread.length - i - 1].breadImg 
-            }) %> 
+            <% if (bread.length != 0) { %>
+                <%- include('components/bread.ejs', {
+                    breadId: bread[i].breadId,
+                    name: bread[i].name, 
+                    price: bread[i].price,
+                    breadimg: bread[i].breadImg, 
+                    descript: bread[i].descript
+                }) %> 
+            <% } %>
         <% } %>
     </div>
     

@@ -1,24 +1,22 @@
-<form action="/addtocart" method="post" class="w-full p-4">
+<style>
+    input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
+</style>
+<form action="/addtocart" method="post" class="bg-black w-full h-92 border border-gray-100 pt-7 pb-5 px-7 flex flex-col gap-4 rounded-[5px]">
     <% if(user != null) { %>
-    <input class="hidden" type="number" name="userId" id="userId" value="<%= user.data.userId %>">
+        <input class="hidden" type="number" name="userId" id="userId" value="<%= user.userId %>">
     <% } %>
-    <input class="hidden" type="number" name="cart_id" id="cart_id" value="<%= user.data.userId %>">
+    <input class="hidden" type="number" name="cart_id" id="cart_id" value="<%= user.userId %>">
     <input class="hidden" type="number" name="breadId" id="breadId" value="<%= breadId %>">
-    <div class="bg-white border hover:shadow-lg transition-all rounded-md overflow-hidden cursor-pointer">
-        <div id="picture" class="flex items-center justify-center w-full h-48 overflow-hidden">
-            <img src="<%= breadimg %>" class="w-full object-cover"/>
-        </div>
-        <div class="bg-white px-5">
-            <h1 class="text-xl font-medium text-center"><%= name %></h1>
-            <div class="flex justify-between items-center">
-                <p class="text-lg font-medium text-[#222]">฿ <span class="text-red-500 font-semibold"><%= price %></span></p>
 
-                <div class="flex gap-2">
-                    <label for="amount" class="font-medium">จำนวน</label>
-                    <input type="number" name="quantity" id="amount" class="bg-gray-50 border w-12 text-center rounded-md" value="1">
-                </div>
-            </div>
-        </div>
-        <input type="submit" class="w-full bg-[#222] text-white py-2 mt-2  hover:text-[#F4BF14] transition-all cursor-pointer" value="เพิ่มลงตะกร้า">
+    <div class="flex items-center justify-center font-bold text-xl text-white mb-[10px] "><%= name %></div>
+    <div class="flex justify-center text-white text-center h-20"><%= descript %></div>
+    <div class="flex items-center justify-center text-white font-bold text-xl"><%= price %> ฿</div>
+    <div id="pic" class="flex items-center justify-center overflow-hidden">
+        <img src="<%= breadimg %>" class="w-full h-[300px] object-cover">
+    </div>
+    <div class="flex justify-between items-center px-5">
+        <input type="number" name="quantity" id="amount" class="w-[80px] bg-[#2C2C2C] text-white font-bold text-center py-2 rounded-[2px]"  value="1">
+        <input type="submit" class="bg-white text-black text-lg font-bold text-normal px-4 py-1 cursor-pointer 
+        hover:bg-amber-300 transition-all duration-300 ease-in-out hover:text-white rounded-[2px]" value="ADD TO CART">
     </div>
 </form>
