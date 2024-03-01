@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <link rel="stylesheet" href="../css/main.css"> -->
+    <link rel="stylesheet" href="../css/main.css">
     <%- include('components/utility.ejs') %>
     <title>Menu Page</title>
 </head>
@@ -35,12 +35,13 @@
             <% allStatus = true; %>
         <% } %>
     <% } %>
-
+    
     <div class="flex justify-center items-center">
         <p class="font-semibold text-3xl text-gray-400 mt-[10px] mb-[20px] ">
             <% if (allStatus) { %>
                 ALL BREADS
             <% } else { %>
+                <% console.log(bread[0].typeBread) %>
                 <% if (bread[0].typeBread == 'Burger_buns') { %>
                     BURGER BUNS
                 <% } else if (bread[0].typeBread == 'Hoagies&Hot_dog') { %>

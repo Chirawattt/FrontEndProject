@@ -6,10 +6,9 @@
     <%- include('components/utility.ejs') %>
     <title>My Order Page</title>
 </head>
-<body class="bg-black">
+<body class="bg-[#0a0a0a] px-20">
     <!-- navbar -->
     <%- include('components/navbar.ejs') %>
-
     <% let countOrder = 0; %>
     <% for (let i = 0; i < myorder.length; i++) { %>
         <% countOrder++; %>
@@ -25,26 +24,29 @@
                 <div class="w-1/4 text-center">Order ID</div>
                 <div class="w-1/4 text-center">Real Name</div>
                 <div class="w-1/4 text-center">Total</div>
-                <div class="w-1/4 text-center">Date</div>
+                <div class="w-1/4 text-center">Date/Time</div>
+                
             </div>
             <!-- order item -->
-
+            
             <% if(myorder.length == 0) { %>
                 <div class="flex justify-center items-center bg-black py-4 rounded-[0_0_0.375rem_0.375rem] border">
                     <h1 class="text-xl font-semibold text-gray-400">Don't have any Order yet.</h1>
                 </div>
             <% } %>
             <% if(myorder.length > 0) { %>
-
                 <% for (let i = 0; i < myorder.length; i++) { %>
                     <% let orderDate = new Date(myorder[i].createdAt); %>
-                    <% let strDate = orderDate.getDate() + "/" + (orderDate.getMonth() + 1) + "/" + (parseInt(orderDate.getFullYear()) + 543); %>
+                    <% let strDate = orderDate.getDate().toString().padStart(2,'0') + "/" + (orderDate.getMonth() + 1).toString().padStart(2,'0') + "/" + (parseInt(orderDate.getFullYear()) + 543); %>
+                    <% let strTime = orderDate.getHours().toString().padStart(2,'0') + ":" + orderDate.getMinutes().toString().padStart(2,'0') + ":" + orderDate.getSeconds().toString().padStart(2,'0'); %>
                     <%- include('components/myorderItem.ejs', {
                         orderId: myorder[i].orderId,
                         totalAmount: myorder[i].totalAmount,
                         subtotal: myorder[i].subtotal,
                         fname: user.fname,
-                        date: strDate
+                        date: strDate,
+                        time: strTime,
+                        orderDetail: myOrderDetailArray[i]
                     }) %>
                 <% } %>
             <% } %>

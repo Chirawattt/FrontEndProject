@@ -6,7 +6,7 @@
     <%- include('components/utility.ejs') %>
     <title>Order Receieve</title>
 </head>
-<body class="bg-black">
+<body class="bg-[#0a0a0a] px-20">
     <!-- navbar -->
     <%- include('components/navbar.ejs') %>
     <% let doneOrder = 0; %>
@@ -30,8 +30,8 @@
                 <div class="w-1/6 text-center">Real Name</div>
                 <div class="w-1/6 text-center">Total</div>
                 <div class="w-1/4 text-center">Status</div>
-                <div class="w-1/6 text-center">Date</div>
-                <div class="w-1/6 text-center">operation</div>
+                <div class="w-1/6 text-center">Date/Time</div>
+                <div class="w-1/6 text-center">Operation</div>
             </div>
             <!-- order item -->
 
@@ -44,7 +44,8 @@
 
                 <% for (let i = 0; i < order.length; i++) { %>
                     <% let orderDate = new Date(order[i].createdAt); %>
-                    <% let strDate = orderDate.getDate() + "/" + (orderDate.getMonth() + 1) + "/" + (parseInt(orderDate.getFullYear()) + 543); %>
+                    <% let strDate = orderDate.getDate().toString().padStart(2,'0') + "/" + (orderDate.getMonth() + 1).toString().padStart(2,'0') + "/" + (parseInt(orderDate.getFullYear()) + 543); %>
+                    <% let strTime = orderDate.getHours().toString().padStart(2,'0') + ":" + orderDate.getMinutes().toString().padStart(2,'0') + ":" + orderDate.getSeconds().toString().padStart(2,'0'); %>
                     <% if (order[i].status != "done") { %> 
                         <%- include('components/orderItem.ejs', {
                             orderId: order[i].orderId,
@@ -53,7 +54,8 @@
                             status: order[i].status,
                             subtotal: order[i].subtotal,
                             fname: userArray[i],
-                            date: strDate
+                            date: strDate,
+                            time: strTime
                         }) %>
                     <% } %>
                 <% } %>
@@ -75,7 +77,7 @@
                 <div class="w-1/4 text-center">Real Name</div>
                 <div class="w-1/4 text-center">Total</div>
                 <div class="w-1/4 text-center">Status</div>
-                <div class="w-1/4 text-center">Date</div>
+                <div class="w-1/4 text-center">Date/Time</div>
             </div>
             <!-- order item -->
 
@@ -88,6 +90,7 @@
                 <% for (let i = 0; i < order.length; i++) { %>
                     <% let orderDate = new Date(order[i].createdAt); %>
                     <% let strDate = orderDate.getDate() + "/" + (orderDate.getMonth() + 1) + "/" + (parseInt(orderDate.getFullYear()) + 543); %>
+                    <% let strTime = orderDate.getHours() + ":" + orderDate.getMinutes() + ":" + orderDate.getSeconds(); %>
                     <% if (order[i].status == "done") { %> 
                         <%- include('components/orderItem.ejs', {
                             orderId: order[i].orderId,
@@ -96,7 +99,8 @@
                             status: order[i].status,
                             subtotal: order[i].subtotal,
                             fname: userArray[i],
-                            date: strDate
+                            date: strDate,
+                            time: strTime
                         }) %>
                     <% } %>
                 <% } %>

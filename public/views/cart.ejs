@@ -6,7 +6,7 @@
     <%- include('components/utility.ejs') %>
     <title>My cart detail</title>
 </head>
-<body class="bg-[#0a0a0a]">
+<body class="bg-[#0a0a0a] px-20">
     <!-- navbar -->
     <%- include('components/navbar.ejs', { userName: 'เข้าสู่ระบบ', orderCount: cart.length }) %>
     <div class="container mx-auto text-center pt-8 pb-4 font-semibold text-gray-400 text-3xl lg:text-4xl">
@@ -32,12 +32,13 @@
             <% if(cart.length > 0) { %>
                 <% for (let i = 0; i < cart.length; i++) { %>
                     <%- include('components/cartBread.ejs', {
-                        name: bread[i].name,
-                        price: bread[i].price,
-                        type: bread[i].type,
+                        cartDetailId: cart[i].cartDetailId,
+                        name: bread[cart[i].bread_id - 1].name,
+                        price: bread[cart[i].bread_id - 1].price,
+                        type: bread[cart[i].bread_id - 1].type,
                         quantity: cart[i].quantity,
                         subtotal: cart[i].subtotal,
-                        breadimg: bread[i].breadImg
+                        breadimg: bread[cart[i].bread_id - 1].breadImg
 
                     }) %>
                 <% } %>
@@ -61,7 +62,9 @@
                         </div>
                     </div>
                     <div class="w-1/6 flex justify-center"> 
-                        <input type="submit" value="order" onClick="alert('Confirm Order?')" class="bg-green-500 text-white py-1 px-3 rounded-md transition-all cursor-pointer hover:bg-green-700">
+                        <% if (cart.length > 0) {%>
+                            <input type="submit" value="order" onClick="alert('Confirm Order?')" class="bg-green-500 text-white py-1 px-3 rounded-md transition-all cursor-pointer hover:bg-green-700">
+                        <% } %>
                     </div>
                 </form>
             </div>

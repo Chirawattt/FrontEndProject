@@ -1,4 +1,5 @@
 <!-- cart items -->
+
 <div class="flex items-center bg-black gap-4 py-2 px-4 border-t border-x hover:bg-gray-100 transition-all text-md text-white hover:text-black">
     <div class="w-1/2 flex items-center gap-4">
         <img src="<%= breadimg %>" alt="bread" class="w-12 h-12 object-cover rounded-md">
@@ -12,6 +13,6 @@
     </div>
     <div class="w-1/6 text-center">฿ <%= subtotal %></div>
     <div class="w-1/6 flex justify-center items-center">
-        <a href="" class="bg-red-500 text-white py-1 px-2 rounded-md transition-all cursor-pointer hover:bg-red-700">delete</a>
+        <a href="/deletecart/<%= cartDetailId %>" class="bg-red-500 text-white py-1 px-2 rounded-md transition-all cursor-pointer hover:bg-red-700">delete</a>
     </div>
 </div>

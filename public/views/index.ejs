@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
     <%- include('components/utility.ejs') %>
     <title>Home Page</title>
 </head>
-<body>
-    <%- include('components/navbar.ejs') %>
+<body class="bg-[#0a0a0a] px-20">
+    <%- include('components/navbar.ejs', {cartlength: cartlength, orderlength: orderlength}) %>
     <%- include('components/hero.ejs') %>
     <div class="text-center text-3xl text-purple-500 mt-16 font-bold">
         Popular Menu

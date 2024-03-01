@@ -1,16 +1,12 @@
-<style>
-    input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
-</style>
-<form action="/addtocart" method="post" class="bg-black w-full h-92 border border-gray-100 pt-7 pb-5 px-7 flex flex-col gap-4 rounded-[5px]">
-    <% if(user != null) { %>
-        <input class="hidden" type="number" name="userId" id="userId" value="<%= user.userId %>">
-    <% } %>
+
+<form action="/addtocart" method="post" class="bg-black hover:bg-gray-100 text-white hover:text-black h-92 
+    border border-gray-100 pt-7 pb-5 px-7 flex flex-col gap-4 rounded-[5px] transition-all ease-in-out duration-300 cursor-pointer">
     <input class="hidden" type="number" name="cart_id" id="cart_id" value="<%= user.userId %>">
     <input class="hidden" type="number" name="breadId" id="breadId" value="<%= breadId %>">
 
-    <div class="flex items-center justify-center font-bold text-xl text-white mb-[10px] "><%= name %></div>
-    <div class="flex justify-center text-white text-center h-20"><%= descript %></div>
-    <div class="flex items-center justify-center text-white font-bold text-xl"><%= price %> ฿</div>
+    <div class="flex items-center justify-center font-bold text-xl  mb-[10px] "><%= name %></div>
+    <div class="flex justify-center  text-center h-20"><%= descript %></div>
+    <div class="flex items-center justify-center  font-bold text-xl"><%= price %> ฿</div>
     <div id="pic" class="flex items-center justify-center overflow-hidden">
         <img src="<%= breadimg %>" class="w-full h-[300px] object-cover">
     </div>

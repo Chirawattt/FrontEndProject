@@ -22,8 +22,12 @@ app.locals.updateError = false;
 app.locals.updateErrorMessage = "";
 app.locals.registererror = false;
 app.locals.editprofileerror = false;
-app.locals.cartlength = 0;
 app.locals.cart = null;
+app.locals.cartlength = 0;
+app.locals.order = null;
+app.locals.orderlength = null;
+app.locals.bread = null;
+app.locals.from = null;
 
 axios.get(`${base}/bread/all`)
   .then(response => {
@@ -60,13 +64,24 @@ app.get('/login', (req, res) => {
     res.render('login.ejs');
 });
 
+
 // route to login by post method
-app.post('/login', async (req, res) => {
+app.post('/login', (req, res) => {
     axios.post(`${base}/user/login`, req.body)
-        .then((response) => {
-            console.log(response.data);
+        .then(async (response) => {
             if (response.data.statuslogin == true) {
                 app.locals.user = response.data.user;
+                const cartUserData = await axios.get(`${base}/cart/getDetail/${app.locals.user.userId}`);
+                app.locals.cart = cartUserData.data;
+                app.locals.cartlength = app.locals.cart.length;
+               
+                const orderUserData = await axios.get(`${base}/order/getAll/new`);
+                app.locals.order = orderUserData.data;
+                app.locals.orderlength = app.locals.order.length;
+
+                const breadData = await axios.get(`${base}/bread/all`);
+                app.locals.bread = breadData.data;
+
                 res.redirect('/');
             } else {
                 app.locals.loginError = true;
@@ -82,6 +97,10 @@ app.post('/login', async (req, res) => {
 // route to logout
 app.get('/logout', (req, res) => {
     app.locals.user = null;
+    app.locals.cart = null;
+    app.locals.cartlength = 0;
+    app.locals.order = null;
+    app.locals.orderlength = 0;
     res.redirect('/');
 });
 
@@ -133,36 +152,37 @@ app.get('/deleteprofile', (req, res) => {
 });
 
 // route to get add product page
-app.get('/addproduct', (req, res) => {
+app.get('/addBread', (req, res) => {
     if (app.locals.user != null) {
-        res.render('addbread.ejs');
+        res.render('addBread.ejs');
     } else { res.redirect('/login'); }
 });
 
 // route to add product by post method
-app.post('/addproduct', async (req, res) => {
+app.post('/addBread', async (req, res) => {
     axios.post(`${base}/bread/new`, req.body)
         .then((response) => {
             axios.get(`${base}/bread/all`)
             .then((response) => {
                 app.locals.bread = response.data;
-                res.render('manageproducts.ejs', {bread: app.locals.bread});
+                res.render('breadManage.ejs', {bread: app.locals.bread});
             }).catch(err => {
                 res.redirect('/');
             });
         }).catch(error => {
-            res.redirect('/addbread');
-        });
+            res.redirect('/addBread');
+    });
 });
 
 
 // route to manage products pages
-app.get('/manageproducts', async (req, res) => {
-    try {
-        res.render('manageproducts.ejs', {bread: app.locals.bread});
-    } catch (err) {
+app.get('/breadManage', (req, res) => {
+    axios.get(`${base}/bread/all`).then((response) => {
+        app.locals.bread = response.data;
+        res.render('breadManage.ejs', {bread: app.locals.bread});
+    }).catch(error => {
         res.redirect('/');
-    }
+    });
 });
 
 // route to get all bread data 
@@ -179,32 +199,31 @@ app.get('/bread', (req, res) => {
 // route to get bread data by category
 app.get('/bread/:breadType', (req, res) => {
     axios.get(`${base}/bread/type/${req.params.breadType}`)
-  .then((response) => {
-    // console.log(req.params.breadType);
-    res.render('menu.ejs', {bread: response.data});
-  }).catch((error) => {
-    res.redirect('/');
-  });
+    .then((response) => {
+        res.render('menu.ejs', {bread: response.data});
+    }).catch((error) => {
+        res.redirect('/');
+    });
 });
 
 // route to get bread data by bread id
-app.get('/editbread/:id',  (req, res) => {
+app.get('/editBread/:id',  (req, res) => {
     axios.get(`${base}/bread/get/${req.params.id}`)
     .then(response => {
-        res.render('editbread.ejs', {bread: response.data});
+        res.render('editBread.ejs', {bread: response.data});
     }).catch(err => {
         res.json(err);
     })
 });
 
 // route to update bread by post method
-app.post('/editbread/:id', async (req, res) => {
+app.post('/editBread/:id', async (req, res) => {
     axios.post(`${base}/bread/update/${req.params.id}`, req.body)
     .then((response) => {
         axios.get(`${base}/bread/all`)
       .then((response) => {
         app.locals.bread = response.data;
-        res.render('manageproducts.ejs', {bread: app.locals.bread});
+        res.render('breadManage.ejs', {bread: app.locals.bread});
       }).catch((error) => {
         res.redirect('/');
       });
@@ -214,18 +233,18 @@ app.post('/editbread/:id', async (req, res) => {
 });
 
 // route to delete bread
-app.get('/deletebread/:id', (req, res) => {
+app.get('/deleteBread/:id', (req, res) => {
     axios.delete(`${base}/bread/delete/${req.params.id}`)
     .then((response) => {
         axios.get(`${base}/bread/all`)
         .then((response) => {
             app.locals.bread = response.data;
-            res.render('manageproducts.ejs', {bread: app.locals.bread});
+            res.render('breadManage.ejs', {bread: app.locals.bread});
         }).catch((error) => {
             res.redirect('/');
         });
     }).catch((error) => {
-    res.redirect('/manageproducts');
+        res.redirect('/breadManage');
     });
 });
 
@@ -233,7 +252,10 @@ app.get('/deletebread/:id', (req, res) => {
 app.get('/menu', (req, res) => {
     if(app.locals.user == null) {
         res.redirect('/login');
-      } else { res.render('menu.ejs', {menu: app.locals.bread}); }
+    } else {
+ 
+        res.render('menu.ejs', {bread: app.locals.bread}); 
+    }
 });
 
 // route to get menu by bread id
@@ -274,16 +296,11 @@ app.post('/addtocart', (req, res) => {
       res.redirect('/login');
     } else {
         axios.post(`${base}/cart/add/${req.body.breadId}`, req.body)
-        .then(response => {
-            axios.get(`${base}/cart/getDetail/${req.body.userId}`) 
-            .then(response => {
-                app.locals.cart = response.data;
-              res.render('menu.ejs' , {cart: app.locals.cart});
-            })
-            .catch(error => {
-                res.send(error)
-              res.redirect('/');
-            });
+        .then(async response => {
+            const cartUserData = await axios.get(`${base}/cart/getDetail/${app.locals.user.userId}`);
+            app.locals.cart = cartUserData.data;
+            app.locals.cartlength = app.locals.cart.length;
+            res.redirect('/menu');
         })
         .catch(error => {
             res.send(error)
@@ -292,11 +309,21 @@ app.post('/addtocart', (req, res) => {
     }
 });
 
+// route to delete cart detail from cart
+app.get('/deletecart/:id', async (req, res) => {
+    await axios.post(`${base}/cart/delete/${req.params.id}`);
+    const cartUserData = await axios.get(`${base}/cart/getDetail/${app.locals.user.userId}`);
+    app.locals.cart = cartUserData.data;
+    app.locals.cartlength = app.locals.cart.length;
+    res.redirect('/cart');
+});
+
 // route to make order
 app.post('/checkout', (req, res) => {
     axios.post(`${base}/makeOrder/${req.body.userId}`, req.body)
     .then(response => {
         app.locals.cart = response.data;
+        app.locals.cartlength = 0;
         res.redirect('/menu');
     })
     .catch(error => {
@@ -321,16 +348,15 @@ app.get('/order', (req, res) => {
     });
 });
 
-// continute coding this route ..................
 // route to get all my orders by user id
 app.get('/myorder', (req, res) => {
     axios.get(`${base}/order/getAll/${app.locals.user.userId}`)
-    .then(async response => {
-        app.locals.myorder = response.data;
+    .then(async orderResponse => {
+        app.locals.myorder = orderResponse.data;
         let myOrderDetailArray = [];
         for (let i = 0; i < app.locals.myorder.length; i++) {
-            const myOrderDtail = await axios.get(`${base}/order/detail/${app.locals.myorder[i].order_id}`);
-            myOrderDetailArray.push(myOrderDtail.data);
+            const orderDetail = await axios.get(`${base}/order/detail/${app.locals.myorder[i].orderId}`);
+            myOrderDetailArray.push(orderDetail.data);
         }
         res.render('myorder.ejs', {myorder: app.locals.myorder, myOrderDetailArray: myOrderDetailArray});
     }).catch(error => {
@@ -341,7 +367,10 @@ app.get('/myorder', (req, res) => {
 // route to update order status
 app.get('/updateStatus/:orderId', (req, res) => {
     axios.post(`${base}/order/update/status/${req.params.orderId}`)
-    .then(response => {
+    .then(async response => {
+        const newOrderData = await axios.get(`${base}/order/getAll/new`)
+        app.locals.order = newOrderData.data;
+        app.locals.orderlength = app.locals.order.length;
         res.redirect('/order');
     }).catch(error => {
         res.redirect('/');
@@ -364,3 +393,12 @@ app.post
   app.listen(5000, () => {
     console.log('Server is running at http://localhost:5000/');
 });
+
+// Check list
+// - Check Register
+// - Logo
+// - Login UI
+// - Register UI
+// - About
+// - Footer
+// - Home Pages

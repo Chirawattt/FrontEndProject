@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <title>Edit Bread</title>
 </head>
-<body>
+<body class="bg-[#0a0a0a] px-20">
     <%- include('components/navbar.ejs') %>
-    <div class="min-h-screen flex justify-center items-center bg-gray-50">
+    <div class="min-h-screen flex justify-center items-center bg-[#0a0a0a]">
         <div class="w-full max-w-md">
             <div class="rounded-lg border bg-white text-[#222] shadow-sm">
                 <div class="flex flex-col pt-6">
@@ -18,38 +18,38 @@
                 <div class="p-6">
                     <form action="/editbread/<%= bread.breadId %>" method="post" class="space-y-4">
                         <div class="space-y-2">
-                            <label for="name" class="text-sm font-medium leading-none">Bread name</label>
-                            <input type="text" name="name" id="name" value="<%= bread.name %>" class="flex h-10 w-full rounded-md
-                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                            <label for="name" class="text-sm font-medium leading-none ">Bread name</label>
+                            <input type="text" name="name" id="name" value="<%= bread.name %>" autofocus class="flex h-10 w-full rounded-md
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:border-amber-300">
                         </div>
                         <div class="space-y-2">
-                            <label for="price" class="text-sm font-medium leading-none">Bread price</label>
+                            <label for="price" class="text-sm font-medium leading-none">Bread price (฿)</label>
                             <input type="number" name="price" id="price" value="<%= bread.price %>" class="flex h-10 w-full rounded-md
-                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:border-amber-300">
                         </div>
                         <div class="space-y-2">
                             <label for="typeBread" class="text-sm font-medium leading-none">Bread type</label>
                             <input type="text" name="typeBread" id="typeBread" value="<%= bread.typeBread %>" class="flex h-10 w-full rounded-md
-                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:border-amber-300">
                         </div>
                         <div class="space-y-2">
                             <label for="descript" class="text-sm font-medium leading-none">Bread descript</label>
-                            <input type="text" name="descript" id="descript" value="<%= bread.descript %>" class="flex h-10 w-full rounded-md
-                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                            <textarea name="descript" id="descript" class="flex w-full rounded-md border border-gray-100 bg-gray-50 
+                            px-3 py-2 text-sm focus:outline-none focus:border-amber-300" cols="30" rows="3"><%= bread.descript %></textarea>
                         </div>
                         <div class="space-y-2">
                             <label for="breadImg" class="text-sm font-medium leading-none">Bread img</label>
                             <% if (bread.breadImg == null) { %>
                                 <input type="text" name="breadImg" id="breadImg" placeholder="Null" class="flex h-10 w-full rounded-md
-                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                            border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:border-amber-300">
                             <% } else { %>
                                 <input type="text" name="breadImg" id="breadImg" value="<%= bread.breadImg %>" class="flex h-10 w-full rounded-md
-                                border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none">
+                                border border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:outline-none focus:border-amber-300">
                             <% } %>
                         </div>
                         <div class="space-y-2">
                             <input type="submit" value="Edit" class="w-full h-10 rounded-md border bg-[#222]
-                            text-white hover:shadow-lg hover:text-[#c2df84] focus:outline-none cursor-pointer transition-all">
+                            text-white hover:bg-amber-300 hover:text-black focus:outline-none cursor-pointer transition-all duration-300 ease-in-out">
                         </div>
                         
                     </form>

@@ -1,12 +1,23 @@
 <!-- order items -->
-<div class="flex items-center bg-black gap-4 py-2 px-4 border-t border-x hover:bg-gray-100 hover:text-black transition-all text-md text-white">
-    <div class="w-1/4 flex justify-center items-center">
-        <img src="<%= breadimg %>" alt="breadimg" class="w-12 h-12 object-cover rounded-md">
+<% if (from == "myorderItem") { %>
+    <div class="w-full flex items-center bg-black text-white gap-4 py-2 px-4 hover:bg-gray-100 hover:text-black transition-all text-md ">
+        <div class="w-1/4 flex justify-center items-center">
+            <img src="<%= breadimg %>" alt="breadimg" class="w-12 h-12 object-cover rounded-md">
+        </div>
+        <div class="w-1/4 text-center"><%= name %></div>
+        <div class="w-1/4 text-center"><%= subtotal %> ฿</div>
+        <div class="w-1/4 flex justify-center items-center">(<%= quantity %>) items</div>
     </div>
-    <div class="w-1/4 text-center"><%= name %></div>
-    <div class="w-1/6 text-center"><%= price %> ฿</div>
-    <div class="w-1/6 flex justify-center items-center">
-        <input class="bg-gray-50 text-black border w-12 text-center rounded-md" type="number" name="quantity" id="quantity" value="<%= quantity %>" disabled />
+<% } else { %>
+    <div class="flex items-center bg-black gap-4 py-2 px-4 border-t border-x hover:bg-gray-100 hover:text-black transition-all text-md text-white">
+        <div class="w-1/4 flex justify-center items-center">
+            <img src="<%= breadimg %>" alt="breadimg" class="w-12 h-12 object-cover rounded-md">
+        </div>
+        <div class="w-1/4 text-center"><%= name %></div>
+        <div class="w-1/6 text-center"><%= price %> ฿</div>
+        <div class="w-1/6 flex justify-center items-center">
+            <input class="bg-gray-50 text-black border w-12 text-center rounded-md" type="number" name="quantity" id="quantity" value="<%= quantity %>" disabled />
+        </div>
+        <div class="w-1/6 text-center"><%= subtotal %> ฿</div>
     </div>
-    <div class="w-1/6 text-center"><%= subtotal %> ฿</div>
-</div>
+<% } %>

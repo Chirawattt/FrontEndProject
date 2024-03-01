@@ -1,3 +1,6 @@
+<head>
+    <script src="https://kit.fontawesome.com/8fd7a24457.js" crossorigin="anonymous"></script>
+</head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
     *{ 
@@ -6,38 +9,49 @@
     }
 </style>
 
-    <!-- bg-gradient-to-bl from-[#0a0a0a] to-[#000000] -->
-<div class="sticky top-0 w-full bg-[#0a0a0a] border-b mb-0 text-gray-400 
+<!-- bg-gradient-to-bl from-[#0a0a0a] to-[#000000] -->
+<div class="sticky top-0 w-full bg-transparent  border-b mb-0 text-gray-400 
     transition-all z-[999] flex justify-between p-6">
-    <div>
-        <a href="/" class="mr-8 text-white hover:text-amber-300 font-bold text-4xl ">brd</a>
+    <div class="flex justify-center items-center gap-6">
+        <a href="/" class="text-white hover:text-amber-300 font-bold text-4xl transition-all duration-300 ease-in-out">brd</a>
     </div>
+
     <div class="flex items-center gap-8 font-normal text-lg">
         <% if (user != null) { %>
             <a href="/menu" class="hover:text-amber-300 hover:underline transition-all duration-300 ease-in-out">MENU</a>
-            <a href="/profile" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">PROFILE</a>
             <a href="/about" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">ABOUT</a>
-            <a href="/cart"class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">CART</a>
             <% if (user.role == 'admin') { %>
-                <a href="/manageproducts" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">PRODUCT</a>
-                <a href="/order" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">ORDER</a>
+                <a href="/breadManage" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">BREADS</a>
+                <a href="/order" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out relative">
+                    ORDER
+                    <% if (orderlength > 0) { %>
+                        <span class="flex absolute top-0 right-0 text-white bg-red-500 rounded-full w-4 h-4 justify-center items-center text-xs -translate-y-[60%] translate-x-[60%] "><%= orderlength %></span>
+                    <% } %> 
+                </a>
             <% } else { %>
                 <a href="/myOrder" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">MY ORDER</a>
             <% } %>
         <% } else { %>
+            <!-- this means whose are not logged in yet will see only menu, about -->
             <a href="/menu" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">MENU</a>
-            <a href="/profile" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">PROFILE</a>
             <a href="/about" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">ABOUT</a>
-            <a href="/cart" class="hover:text-white hover:underline transition-all duration-300  ease-in-out">CART</a>
         <% } %>
     </div>
-    <div class="flex items-center">
+
+    <div class="flex items-center justify-center gap-6 text-xl">
         <% if (user != null) { %>
-            <a href="/logout" class="text-red-400 border border-gray-400 text-md text-center focus:ring-4 focus:outline-none 
-            hover:bg-amber-600 hover:text-white transition-all duration-300 ease-in-out font-bold rounded-full  px-3 py-1.5 ">LOGOUT</a>
+            <a href="/profile" class="text-gray-400 hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">@<%= user.username %></a>
+            <% if (user.role == 'user') { %>
+                <a href="/cart"class="hover:text-amber-300 hover:underline transition-all duration-300 ease-in-out relative">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <% if (cartlength > 0) { %>
+                        <span class="flex absolute top-0 right-0 text-white bg-red-500 rounded-full w-4 h-4 justify-center items-center text-xs -translate-y-[60%] translate-x-[60%] "><%= cartlength %></span>
+                    <% } %> 
+                </a>
+            <% } %>
+            <a href="/logout" class="text-red-400 hover:text-gray-400 transition-all duration-300 ease-in-out font-bold ">LOGOUT</a>
         <% } else {%>
-            <a href="/login" class="text-blue-400 border border-gray-400 text-md text-center focus:ring-4 focus:outline-none 
-            hover:bg-amber-600 hover:text-white transition-all duration-300 ease-in-out font-bold rounded-full  px-3 py-1.5 ">LOGIN</a>
+            <a href="/login" class="text-blue-400 hover:text-gray-400 transition-all duration-300 ease-in-out font-bold ">LOGIN</a>
         <% } %>
     </div>
 </div>
