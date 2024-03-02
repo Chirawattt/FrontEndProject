@@ -2,13 +2,11 @@ const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { error } = require('console');
-const { copyFileSync } = require('fs');
-const e = require('express');
-const { render } = require('ejs');
 const app = express();
 
-const base = 'http://localhost:3000'
+// const base = 'http://localhost:3000'
+const base = "http://node59659-breadstore.proen.app.ruk-com.cloud"
+
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
