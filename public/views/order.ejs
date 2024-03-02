@@ -89,8 +89,8 @@
             <% if(order.length > 0) { %>
                 <% for (let i = 0; i < order.length; i++) { %>
                     <% let orderDate = new Date(order[i].createdAt); %>
-                    <% let strDate = orderDate.getDate() + "/" + (orderDate.getMonth() + 1) + "/" + (parseInt(orderDate.getFullYear()) + 543); %>
-                    <% let strTime = orderDate.getHours() + ":" + orderDate.getMinutes() + ":" + orderDate.getSeconds(); %>
+                    <% let strDate = orderDate.getDate().toString().padStart(2,'0') + "/" + (orderDate.getMonth() + 1).toString().padStart(2,'0') + "/" + (parseInt(orderDate.getFullYear()) + 543); %>
+                    <% let strTime = orderDate.getHours().toString().padStart(2,'0') + ":" + orderDate.getMinutes().toString().padStart(2,'0') + ":" + orderDate.getSeconds().toString().padStart(2,'0'); %>
                     <% if (order[i].status == "done") { %> 
                         <%- include('components/orderItem.ejs', {
                             orderId: order[i].orderId,
