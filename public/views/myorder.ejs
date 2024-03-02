@@ -6,7 +6,7 @@
     <%- include('components/utility.ejs') %>
     <title>My Order Page</title>
 </head>
-<body class="bg-[#0a0a0a] px-20">
+<body class="bg-[#0a0a0a] lg:px-20">
     <!-- navbar -->
     <%- include('components/navbar.ejs') %>
     <% let countOrder = 0; %>
@@ -17,7 +17,7 @@
     <div class="container mx-auto text-center pt-10 pb-3 font-semibold text-gray-400  text-3xl lg:text-4xl">
         My order (<span><%= countOrder %></span> orders)
     </div>
-    <div class="container mx-auto lg:px-4 mb-4">
+    <div class="container mx-auto lg:px-4 mb-4 min-w-[390px]">
         <div class="flex flex-col">
             <!-- order header -->
             <div class="flex items-center bg-black text-white gap-4 py-2 px-4 rounded-[0.375rem_0.375rem_0_0] whitespace-nowrap font-semibold border-t border-x">

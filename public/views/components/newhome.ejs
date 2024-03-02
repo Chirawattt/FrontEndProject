@@ -1,7 +1,7 @@
-<div class="grid row-gap-8 sm:row-gap-0 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+<div class="grid row-gap-8 sm:row-gap-0 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 min-w-[390px]">
   <% for(let i = 0; i < 8; i++) { %>
     
-  <form action="/menu" method="get" class="bg-black w-full h-92 border border-gray-100 pt-7 pb-5 px-7 flex flex-col gap-4 rounded-[5px]">
+  <form action="/menu" method="get" class="bg-black w-full h-92 border border-gray-100 pt-7 pb-5 px-7 flex flex-col gap-4 rounded-[5px] ">
   
     <div class="flex items-center justify-center font-bold text-xl text-white mb-[10px] "><%= bread[i].name %></div>
     <div class="flex justify-center text-white text-center h-20"><%= bread[i].descript %></div>
