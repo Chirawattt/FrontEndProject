@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/main.css">
+    <%- include('components/tailwindColor.ejs') %>
     <%- include('components/utility.ejs') %>
     <title>Menu Page</title>
+
+
 </head>
 <body class="bg-[#0a0a0a] px-20">
+
     <%- include('components/navbar.ejs') %>
     <!-- menubar -->
     
     <div class="py-5 w-full border-b mb-5 ">
         <!-- Category Filter -->
         <div class="mx-4 px-4 py-2 bg-[#0a0a0a] h-full flex justify-center items-center ">
-            <ul class="grid grid-cols-3 text-center md:flex items-center gap-4 text-gray-400">
+            <ul class="grid grid-cols-3 text-center lg:flex items-center gap-4 text-gray-400">
                 <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread">ALL</a></li>
                 <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Baguettes">BAGUETTES</a></li>
                 <li class="focus:underline hover:text-amber-300 px-2 transition-all duration-300 ease-in-out hover:underline"><a href="/bread/Bagels">BAGELS</a></li>
@@ -41,7 +45,6 @@
             <% if (allStatus) { %>
                 ALL BREADS
             <% } else { %>
-                <% console.log(bread[0].typeBread) %>
                 <% if (bread[0].typeBread == 'Burger_buns') { %>
                     BURGER BUNS
                 <% } else if (bread[0].typeBread == 'Hoagies&Hot_dog') { %>
@@ -53,7 +56,7 @@
         </p>
     </div>
 
-    <div class="grid row-gap-8 sm:row-gap-0 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div id="bredItems" class="grid row-gap-8 sm:row-gap-0 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
         <% for(let i = 0; i < bread.length; i++) { %>
             <% if (bread.length != 0) { %>
                 <%- include('components/bread.ejs', {

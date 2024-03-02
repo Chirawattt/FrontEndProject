@@ -20,7 +20,8 @@ app.locals.loginError = false;
 app.locals.loginErrorMessage = "";
 app.locals.updateError = false;
 app.locals.updateErrorMessage = "";
-app.locals.registererror = false;
+app.locals.registerError = false;
+app.locals.registerErrorMessage = "";
 app.locals.editprofileerror = false;
 app.locals.cart = null;
 app.locals.cartlength = 0;
@@ -44,17 +45,19 @@ app.get('/', async (req, res) => {
 // route to register page
 app.get('/register', (req, res) => {
     res.render('register.ejs');
-    app.locals.registererror = false;
+    app.locals.registerError = false;
 });
 
 // route to register by post method
-app.post('/register', async (req, res) => {
+app.post('/register', (req, res) => {
     axios.post(`${base}/user/register`, req.body)
     .then((response) => {
-        if (response.data.registerfailed == true) {
-            app.locals.registererror = true;
-            res.redirect('/register');
-        } else { res.redirect('/login'); }
+        if (response.data.statusRegister == false) {
+            app.locals.registerError = true;
+            res.render('register.ejs',{registerErrorMessage: response.data.message});
+        } else { 
+            res.render('login.ejs',{from: "register"}); 
+        }
     }).catch((error) => { console.log(error);
     });
 });

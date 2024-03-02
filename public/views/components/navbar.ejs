@@ -10,13 +10,18 @@
 </style>
 
 <!-- bg-gradient-to-bl from-[#0a0a0a] to-[#000000] -->
-<div class="sticky top-0 w-full bg-transparent  border-b mb-0 text-gray-400 
+<div id="nav-bar" class="sticky backdrop-blur-md top-0 w-full bg-black/50 border-b mb-0 text-gray-400 
     transition-all z-[999] flex justify-between p-6">
+
     <div class="flex justify-center items-center gap-6">
         <a href="/" class="text-white hover:text-amber-300 font-bold text-4xl transition-all duration-300 ease-in-out">brd</a>
     </div>
 
-    <div class="flex items-center gap-8 font-normal text-lg">
+    <div id="mobile-btn" class="lg:hidden flex justify-center items-center text-2xl scale-x-110 mr-[20px]">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="lg:flex hidden items-center gap-8 font-normal text-2xl">
         <% if (user != null) { %>
             <a href="/menu" class="hover:text-amber-300 hover:underline transition-all duration-300 ease-in-out">MENU</a>
             <a href="/about" class="hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">ABOUT</a>
@@ -38,7 +43,7 @@
         <% } %>
     </div>
 
-    <div class="flex items-center justify-center gap-6 text-xl">
+    <div class="lg:flex hidden items-center justify-center gap-6 text-xl">
         <% if (user != null) { %>
             <a href="/profile" class="text-gray-400 hover:text-amber-300 hover:underline transition-all duration-300  ease-in-out">@<%= user.username %></a>
             <% if (user.role == 'user') { %>
@@ -54,4 +59,84 @@
             <a href="/login" class="text-blue-400 hover:text-gray-400 transition-all duration-300 ease-in-out font-bold ">LOGIN</a>
         <% } %>
     </div>
+
+    <div id="mobile-menu" class="hidden justify-center items-center flex-col lg:hidden bg-black/80 backdrop-blur-md text-white w-full h-screen absolute top-0 left-0 -z-10">
+        <% if (user != null) { %>
+            <a href="/menu" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">MENU</a>
+            <hr id="underline-mobilenav" class="w-full opacity-50"/>
+            <a href="/about" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">ABOUT</a>
+            <hr id="underline-mobilenav" class="w-full opacity-50"/>
+            <% if (user.role == 'admin') { %>
+                <a href="/breadManage" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">BREADS</a>
+                <hr id="underline-mobilenav" class="w-full opacity-50"/>
+                <a href="/order" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline relative">
+                    ORDERS
+                    <% if (orderlength > 0) { %>
+                        <span class="flex absolute top-0 right-0 text-white bg-red-500 rounded-full w-4 h-4 justify-center items-center text-xs -translate-y-[60%] translate-x-[60%] "><%= orderlength %></span>
+                    <% } %> 
+                </a>
+                <hr id="underline-mobilenav" class="w-full opacity-50"/>
+            <% } else { %>
+                <a href="/myOrder" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">MY ORDER</a>
+                <hr id="underline-mobilenav" class="w-full opacity-50"/>
+            <% } %>
+        <% } else {%>
+            <a href="/menu" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">MENU</a>
+            <hr id="underline-mobilenav" class="w-full opacity-50"/>
+            <a href="/about" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">ABOUT</a>
+            <hr id="underline-mobilenav" class="w-full opacity-50"/>
+        <% } %>
+    
+        <% if (user != null) { %>
+            <a href="/profile" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">@<%= user.username %></a>
+            <hr id="underline-mobilenav" class="w-full opacity-50"/>
+            <% if (user.role == 'user') { %>
+                <a href="/cart" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <% if (cartlength > 0) { %>
+                        <span class="flex absolute top-0 right-0 text-white bg-red-500 rounded-full w-4 h-4 justify-center items-center text-xs -translate-y-[60%] translate-x-[60%] "><%= cartlength %></span>
+                    <% } %> 
+                </a>
+                <hr id="underline-mobilenav" class="w-full opacity-50"/>
+            <% } %>
+            <a href="/logout" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">LOGOUT</a>
+        <% } else {%>
+            <a href="/login" class="text-2xl font-semibold p-4 hover:text-[#F4BF14] transition-all hover:underline">LOGIN</a>
+        <% } %>
+    </div>
 </div>
+
+
+<script>
+    const mobileBtn = document.getElementById('mobile-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navBar = document.getElementById('nav-bar');
+
+    window.addEventListener('resize', () => {
+        if (mobileMenu.style.display === 'none') {
+        navBar.classList.add('backdrop-blur-md');
+        }
+    });
+
+
+    // Mobile menu
+    mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+        navBar.classList.toggle('backdrop-blur-md');
+        
+        if(mobileMenu.classList.contains('hidden')) {
+            mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        } else {
+            mobileBtn.innerHTML = '<i class="fa-solid fa-x"></i>';
+        }
+
+        // Close mobile menu when click a link
+        mobileMenu.addEventListener('click', (e) => {
+            if(e.target.tagName === 'A') {
+                mobileMenu.classList.add('hidden');
+                mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            }
+        });
+    });
+</script>
